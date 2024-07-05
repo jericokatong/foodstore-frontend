@@ -51,9 +51,8 @@ const Login = () => {
     let { user, token } = data;
     dispatch(userLogin(user, token));
 
-    navigate('/');
-
     setStatus(statuslist.success);
+    navigate('/');
   };
 
   return (
