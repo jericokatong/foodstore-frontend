@@ -24,8 +24,8 @@ const Routes = () => {
     <Router>
       <Switch>
         {/* GUEST ROUTE */}
+        <Route element={<Home />} path="/" />
         <Route element={<GuestRouteOnly />}>
-          <Route element={<Home />} path="/" />
           <Route element={<Register />} path="/register" />
           <Route element={<RegisterSuccess />} path="/register/berhasil" />
           <Route element={<Login />} path="/login" />
