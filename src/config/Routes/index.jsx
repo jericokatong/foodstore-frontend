@@ -23,8 +23,8 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        {/* GUEST ROUTE */}
         <Route element={<Home />} path="/" />
+        {/* GUEST ROUTE */}
         <Route element={<GuestRouteOnly />}>
           <Route element={<Register />} path="/register" />
           <Route element={<RegisterSuccess />} path="/register/berhasil" />
