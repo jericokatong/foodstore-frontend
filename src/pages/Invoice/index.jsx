@@ -6,13 +6,33 @@ import { formatRupiah } from '../../utils/format-rupiah';
 import { Config } from '../../config';
 import { StatusLabel } from '../../components/atoms';
 import { Topbar } from '../../components/molecules';
+import axios from 'axios';
 
 const Invoice = () => {
   const [invoice, setInvoice] = useState(null);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('process');
+  const [initiatingPayment, setInitiating] = useState(false);
+  const [requestError, setRequestError] = useState(false);
 
   let { order_id } = useParams();
+
+  const handlePayment = async () => {
+    setInitiating(true);
+
+    const {
+      data: { token },
+    } = await axios.get(
+      `${Config.api_host}/api/invoices/${order_id}/initiate-payment`
+    );
+
+    if (!token) {
+      setRequestError(true);
+    }
+
+    setInitiating(false);
+    window.snap.pay(token);
+  };
 
   useEffect(() => {
     getInvoiceByOrderId(order_id)
@@ -43,8 +63,6 @@ const Invoice = () => {
       </div>
     );
   }
-
-  console.log(invoice);
 
   return (
     <div>
@@ -99,6 +117,17 @@ const Invoice = () => {
           </tbody>
         </table>
       </div>
+      {invoice.payment_status !== 'paid' ? (
+        <>
+          <button
+            className="btn"
+            onClick={handlePayment}
+            disabled={initiatingPayment}
+          >
+            {initiatingPayment ? 'Loading ...' : 'Bayar dengan Midtrans'}
+          </button>
+        </>
+      ) : null}
     </div>
   );
 };
