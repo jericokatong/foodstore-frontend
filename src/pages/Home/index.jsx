@@ -20,12 +20,12 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   let dispatch = useDispatch();
   let products = useSelector((state) => state.products);
+  let auth = useSelector((state) => state.auth);
   let cart = useSelector((state) => state.cart);
   let navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchProducts());
-    console.log(products);
   }, [
     dispatch,
     products.currentPage,
@@ -95,7 +95,12 @@ const Home = () => {
                       <div className="card-actions justify-end">
                         <button
                           className="btn btn-primary"
-                          onClick={() => dispatch(addItem(product))}
+                          onClick={() => {
+                            if (!auth.user) {
+                              navigate('/login');
+                            }
+                            dispatch(addItem(product));
+                          }}
                         >
                           Add to Cart
                         </button>

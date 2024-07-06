@@ -7,12 +7,16 @@ const initialState = localStorage.getItem('cart')
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM:
-      if (state.find((item) => item._id === action.item_id)) {
+      console.log('ini state add item: ', state);
+      if (state.find((item) => item.product._id === action.item._id)) {
+        console.log('masuk di if');
         return state.map((item) => ({
           ...item,
-          qty: item._id === action.item._id ? item.qty + 1 : item.qty,
+          // qty: item._id === action.item._id ? item.qty + 1 : item.qty,
+          qty: item.qty + 1,
         }));
       } else {
+        console.log('masuk di else');
         return [...state, { ...action.item, qty: 1 }];
       }
 

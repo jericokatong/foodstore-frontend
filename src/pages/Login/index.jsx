@@ -7,6 +7,7 @@ import { login } from '../../api/auth';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userLogin } from '../../features/Auth/actions';
+import { getCart } from '../../api/cart';
 
 const statuslist = {
   idle: 'idle',
@@ -33,12 +34,10 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (formData) => {
-    console.log(formData);
     setStatus(statuslist.process);
 
     let { data } = await login(formData);
 
-    console.log(data);
     if (data.error) {
       setError('password', {
         type: 'invalidCredential',
@@ -50,6 +49,8 @@ const Login = () => {
     }
     let { user, token } = data;
     dispatch(userLogin(user, token));
+
+    await getCart();
 
     setStatus(statuslist.success);
     navigate('/');
