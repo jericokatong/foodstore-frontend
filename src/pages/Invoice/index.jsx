@@ -20,18 +20,28 @@ const Invoice = () => {
   const handlePayment = async () => {
     setInitiating(true);
 
-    const {
-      data: { token },
-    } = await axios.get(
-      `${Config.api_host}/api/invoices/${order_id}/initiate-payment`
-    );
+    await axios.put(`${Config.api_host}/api/invoices/${order_id}/payment`);
 
-    if (!token) {
-      setRequestError(true);
-    }
+    // console.log('ini token: ', token);
+
+    // if (!token) {
+    //   setRequestError(true);
+    // }
 
     setInitiating(false);
-    window.snap.pay(token);
+    // window.snap.pay(token);
+
+    getInvoiceByOrderId(order_id)
+      .then(({ data }) => {
+        // cek apakah ada error
+        if (data?.error) {
+          setError(data.message || 'Terjadi kesalahan yang tidak diketahui');
+        }
+
+        setInvoice(data);
+        console.log(data);
+      })
+      .finally(() => setStatus('idle'));
   };
 
   useEffect(() => {
@@ -43,6 +53,8 @@ const Invoice = () => {
         }
 
         setInvoice(data);
+        console.log(data);
+        setError('');
       })
       .finally(() => setStatus('idle'));
   }, [order_id]);
@@ -50,7 +62,7 @@ const Invoice = () => {
   if (error.length) {
     return (
       <div>
-        <h1 className="font-bold">Terjadi kesalahan</h1>
+        <h1 className="font-bold">Terjadi kesalahana</h1>
         <p>{error}</p>
       </div>
     );

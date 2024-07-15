@@ -2,7 +2,7 @@ import { ItemSidebar } from '../../atoms';
 
 const Sidebar = ({ dispatch, setCategory }) => {
   return (
-    <div className="side-bar bg-red-400 w-40 text-white flex flex-col gap-7 items-center justify-center">
+    <div className="side-bar bg-red-400 w-[70px] text-white flex flex-col gap-7 items-center justify-start py-5">
       <ItemSidebar
         title="Semua"
         xmlns="http://www.w3.org/2000/svg"

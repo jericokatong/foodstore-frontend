@@ -11,35 +11,50 @@ const Cart = ({ items, onItemInc, onItemDec, onCheckout }) => {
 
   return (
     <div>
-      <div>
-        <FaCartPlus />
-        <h1>Keranjang</h1>
-        <p>Total: {formatRupiah(total)}</p>
-      </div>
-      {!items.length ? (
-        <div className="text-center text-sm text-red-900">
-          belum ada items di keranjang
+      <div className="px-2">
+        <div className="flex gap-2 items-center text-2xl font-sans font-medium text-red-500">
+          <FaCartPlus />
+          <h1>Keranjang</h1>
         </div>
-      ) : null}
+        <p className="font-bold">Total: {formatRupiah(total)}</p>
 
-      {items.map((item, index) => {
-        return (
-          <div key={index}>
-            <img src={`${Config.api_host}/upload/${item.image_url}`} alt="" />
-            <p>{item.name}</p>
-            <p>{item.qty}</p>
-            <button onClick={() => onItemDec(item)}>kurang</button>
-            <button onClick={() => onItemInc(item)}>tambah</button>
+        <button
+          className="btn btn-secondary w-full"
+          disabled={!items.length}
+          onClick={onCheckout}
+        >
+          Checkout <FaArrowRight />
+        </button>
+      </div>
+      <div className="flex flex-wrap gap-5 justify-center mt-5 mb-40">
+        {!items.length ? (
+          <div className="text-center text-sm text-red-900">
+            belum ada items di keranjang
           </div>
-        );
-      })}
-      <button
-        className="btn btn-secondary"
-        disabled={!items.length}
-        onClick={onCheckout}
-      >
-        Checkout <FaArrowRight />
-      </button>
+        ) : null}
+
+        {items.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className="flex flex-col justify-center items-center"
+            >
+              <img
+                className="w-20"
+                src={`${Config.api_host}/upload/${item.image_url}`}
+                alt=""
+              />
+
+              <p>{item.name}</p>
+              <p>{item.qty}</p>
+              <div className="flex justify-between gap-2">
+                <button onClick={() => onItemDec(item)}>kurang</button>
+                <button onClick={() => onItemInc(item)}>tambah</button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

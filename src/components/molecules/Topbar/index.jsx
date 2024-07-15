@@ -6,10 +6,11 @@ import FaUser from '@meronex/icons/fa/FaUser';
 const Topbar = () => {
   const auth = useSelector((state) => state.auth);
   return (
-    <div className="flex flex-row justify-between">
-      <div>FoodStore</div>
+    <div className="flex flex-row justify-between mb-2">
+      <h1 className="text-3xl font-sans font-bold text-red-500">Foodstore</h1>
+
       <Link
-        className="flex gap-3 items-center"
+        className="flex gap-3 items-center text-xl text-red-500"
         to={auth?.user ? '/account' : '/login'}
       >
         {auth?.user?.full_name}

@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { login } from '../../api/auth';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { userLogin } from '../../features/Auth/actions';
 import { getCart } from '../../api/cart';
 
@@ -90,12 +90,19 @@ const Login = () => {
           {errors.password && <p role="alert">{errors.password.message}</p>}
         </div>
 
+        <div>
+          Belum punya akun ?
+          <Link to={'/register'} className="btn btn-secondary">
+            Register
+          </Link>
+        </div>
+
         <button
           type="submit"
           className="btn btn-active btn-primary"
           disabled={status === statuslist.process}
         >
-          {status === statuslist.process ? 'Sedang memproses' : 'Mendaftar'}
+          {status === statuslist.process ? 'Sedang memproses' : 'Masuk'}
         </button>
       </form>
     </div>
