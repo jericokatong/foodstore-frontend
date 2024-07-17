@@ -7,10 +7,10 @@ const Topbar = () => {
   const auth = useSelector((state) => state.auth);
   return (
     <div className="flex flex-row justify-between mb-2">
-      <h1 className="text-3xl font-sans font-bold text-red-500">Foodstore</h1>
+      <h1 className="text-3xl font-sans font-bold text-red-500">FoodStore</h1>
 
       <Link
-        className="flex gap-3 items-center text-xl text-red-500"
+        className="flex gap-1 items-center text-md text-red-500 hover:bg-neutral-100 hover:rounded-lg px-1"
         to={auth?.user ? '/account' : '/login'}
       >
         {auth?.user?.full_name}

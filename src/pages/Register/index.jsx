@@ -55,83 +55,99 @@ const Register = () => {
     navigate('/register/berhasil');
   };
   return (
-    <div>
-      <div>Register</div>
+    <div className="container mx-auto h-screen w-full flex justify-center items-center">
+      <div className="p-4 w-4/5 shadow-2xl border">
+        <h1 className="text-red-500 font-sans text-2xl font-bold text-center mb-10">
+          FoodStore
+        </h1>
 
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="full-name" className="block">
-            Nama Lengkap
-          </label>
-          <input
-            aria-invalid={errors.full_name ? 'true' : 'false'}
-            name="full-name"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            {...register('full_name', rules.full_name)}
-          />
-          {errors.full_name && <p role="alert">{errors.full_name.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="email" className="block">
-            Email
-          </label>
-          <input
-            aria-invalid={errors.email ? 'true' : 'false'}
-            name="email"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            {...register('email', rules.email)}
-          />
-          {errors.email && <p role="alert">{errors.email.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block">
-            Password
-          </label>
-          <input
-            aria-invalid={errors.password ? 'true' : 'false'}
-            name="password"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            {...register('password', rules.password)}
-          />
-          {errors.password && <p role="alert">{errors.password.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="password_confirmation" className="block">
-            Konfirmasi Password
-          </label>
-          <input
-            aria-invalid={errors.password_confirmation ? 'true' : 'false'}
-            name="password_confirmation"
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            {...register('password_confirmation', rules.password_confirmation)}
-          />
-          {errors.password_confirmation && (
-            <p role="alert">{errors.password_confirmation.message}</p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-active btn-primary"
-          disabled={status === statuslist.process}
+        <form
+          action=""
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6"
         >
-          {status === statuslist.process ? 'Sedang memproses' : 'Mendaftar'}
-        </button>
-      </form>
-      <p>
-        Sudah punya akun?<Link to={'/login'}>Masuk Sekarang</Link>
-      </p>
+          <div>
+            <input
+              aria-invalid={errors.full_name ? 'true' : 'false'}
+              name="full-name"
+              type="text"
+              placeholder="Nama Lengkap"
+              className="input input-bordered w-full max-w-xs"
+              {...register('full_name', rules.full_name)}
+            />
+            {errors.full_name && (
+              <p role="alert" className="ml-1 text-red-500">
+                {errors.full_name.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              aria-invalid={errors.email ? 'true' : 'false'}
+              name="email"
+              type="text"
+              placeholder="Email"
+              className="input input-bordered w-full max-w-xs"
+              {...register('email', rules.email)}
+            />
+            {errors.email && (
+              <p role="alert" className="ml-1 text-red-500">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              aria-invalid={errors.password ? 'true' : 'false'}
+              name="password"
+              type="text"
+              placeholder="Password"
+              className="input input-bordered w-full max-w-xs"
+              {...register('password', rules.password)}
+            />
+            {errors.password && (
+              <p role="alert" className="ml-1 text-red-500">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              aria-invalid={errors.password_confirmation ? 'true' : 'false'}
+              name="password_confirmation"
+              type="text"
+              placeholder="Konfirmasi Password"
+              className="input input-bordered w-full max-w-xs"
+              {...register(
+                'password_confirmation',
+                rules.password_confirmation
+              )}
+            />
+            {errors.password_confirmation && (
+              <p role="alert" className="ml-1 text-red-500">
+                {errors.password_confirmation.message}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-active btn-error text-white w-full"
+            disabled={status === statuslist.process}
+          >
+            {status === statuslist.process ? 'Processing...' : 'Mendaftar'}
+          </button>
+          <p className="text-center">
+            Sudah punya akun?
+            <Link to={'/login'} className="ml-1 text-black font-semibold">
+              Masuk Sekarang
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

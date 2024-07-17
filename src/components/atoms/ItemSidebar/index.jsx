@@ -1,24 +1,43 @@
 import PropTypes from 'prop-types';
-const ItemSidebar = ({ title, xmlns, viewBox, d, dispatch, setCategory }) => {
+const ItemSidebar = ({
+  title,
+  icon,
+  dispatch,
+  setCategory,
+  activeItem,
+  setActiveItem,
+  toggleCategory,
+  setToggleCategory,
+}) => {
   return (
     <div
-      className="flex flex-col items-center fill-white w-8 cursor-pointer"
-      onClick={() => dispatch(setCategory(title))}
+      className={`font-sans font-medium flex flex-col items-center fill-white cursor-pointer w-full p-2 ${
+        activeItem === title
+          ? 'bg-red-500 rounded-lg'
+          : 'hover:bg-red-500 hover:rounded-lg'
+      }`}
+      onClick={() => {
+        dispatch(setCategory(title));
+        setActiveItem(title);
+        if (toggleCategory === true) {
+          setToggleCategory(!toggleCategory);
+        }
+      }}
     >
-      <svg xmlns={xmlns} viewBox={viewBox}>
-        <path d={d} />
-      </svg>
-      <span>{title}</span>
+      <div className="text-xl">{icon}</div>
+      <span className="text-xs">{title}</span>
     </div>
   );
 };
 
 ItemSidebar.propTypes = {
   title: PropTypes.string,
-  xmlns: PropTypes.string,
-  viewBox: PropTypes.string,
-  d: PropTypes.string,
+  icon: PropTypes.object,
   dispatch: PropTypes.func,
   setCategory: PropTypes.func,
+  activeItem: PropTypes.string,
+  setActiveItem: PropTypes.func,
+  toggleCategory: PropTypes.bool,
+  setToggleCategory: PropTypes.func,
 };
 export default ItemSidebar;

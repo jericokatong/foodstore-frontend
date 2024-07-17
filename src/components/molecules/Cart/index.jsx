@@ -5,8 +5,10 @@ import FaArrowRight from '@meronex/icons/fa/FaArrowRight';
 import FaCartPlus from '@meronex/icons/fa/FaCartPlus';
 import { sumPrice } from '../../../utils/sum-price';
 import { formatRupiah } from '../../../utils/format-rupiah';
+import { FaPlusCircle } from 'react-icons/fa';
+import { FaCircleMinus } from 'react-icons/fa6';
 
-const Cart = ({ items, onItemInc, onItemDec, onCheckout }) => {
+const Cart = ({ items, onItemInc, onItemDec, onCheckout, toggleCart }) => {
   let total = sumPrice(items);
 
   return (
@@ -16,17 +18,17 @@ const Cart = ({ items, onItemInc, onItemDec, onCheckout }) => {
           <FaCartPlus />
           <h1>Keranjang</h1>
         </div>
-        <p className="font-bold">Total: {formatRupiah(total)}</p>
+        <p className="font-bold mb-2">Total: {formatRupiah(total)}</p>
 
         <button
-          className="btn btn-secondary w-full"
+          className="btn btn-error text-white w-full min-h-8 h-8 rounded-lg"
           disabled={!items.length}
           onClick={onCheckout}
         >
           Checkout <FaArrowRight />
         </button>
       </div>
-      <div className="flex flex-wrap gap-5 justify-center mt-5 mb-40">
+      <div className="flex flex-wrap gap-5 justify-center mt-5 mb-4 px-2">
         {!items.length ? (
           <div className="text-center text-sm text-red-900">
             belum ada items di keranjang
@@ -37,19 +39,27 @@ const Cart = ({ items, onItemInc, onItemDec, onCheckout }) => {
           return (
             <div
               key={index}
-              className="flex flex-col justify-center items-center"
+              className={`${
+                toggleCart ? '' : 'hidden'
+              } flex gap-5 flex-row justify-between items-center bg-red-500 w-full py-5 px-5 rounded-lg text-white`}
             >
               <img
-                className="w-20"
+                className="w-14 h-14 bg-white rounded-lg"
                 src={`${Config.api_host}/upload/${item.image_url}`}
                 alt=""
               />
+              <p className="font-bold text-start text-wrap w-full">
+                {item.name}
+              </p>
 
-              <p>{item.name}</p>
-              <p>{item.qty}</p>
-              <div className="flex justify-between gap-2">
-                <button onClick={() => onItemDec(item)}>kurang</button>
-                <button onClick={() => onItemInc(item)}>tambah</button>
+              <div className="flex justify-center gap-2">
+                <button onClick={() => onItemDec(item)}>
+                  <FaCircleMinus />
+                </button>
+                <p>{item.qty}</p>
+                <button onClick={() => onItemInc(item)}>
+                  <FaPlusCircle />
+                </button>
               </div>
             </div>
           );
@@ -70,6 +80,7 @@ Cart.propTypes = {
   onItemDec: PropTypes.func,
   onItemInc: PropTypes.func,
   onCheckout: PropTypes.func,
+  toggleCart: PropTypes.bool,
 };
 
 export default Cart;

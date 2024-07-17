@@ -57,54 +57,64 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label htmlFor="email" className="block">
-            Email
-          </label>
-          <input
-            aria-invalid={errors.email ? 'true' : 'false'}
-            name="email"
-            type="email"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            {...register('email', rules.email)}
-          />
-          {errors.email && <p role="alert">{errors.email.message}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="password" className="block">
-            Password
-          </label>
-          <input
-            aria-invalid={errors.password ? 'true' : 'false'}
-            name="password"
-            type="password"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            {...register('password', rules.password)}
-          />
-          {errors.password && <p role="alert">{errors.password.message}</p>}
-        </div>
-
-        <div>
-          Belum punya akun ?
-          <Link to={'/register'} className="btn btn-secondary">
-            Register
-          </Link>
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-active btn-primary"
-          disabled={status === statuslist.process}
+    <div className="container h-screen w-full flex justify-center items-center">
+      <div className="p-4 w-4/5 border shadow-2xl">
+        <h1 className="text-red-500 font-bold text-center font-sans text-2xl mb-10">
+          FoodStore
+        </h1>
+        <form
+          action=""
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6"
         >
-          {status === statuslist.process ? 'Sedang memproses' : 'Masuk'}
-        </button>
-      </form>
+          <div>
+            <input
+              aria-invalid={errors.email ? 'true' : 'false'}
+              name="email"
+              type="email"
+              placeholder="Email"
+              className="input input-bordered w-full max-w-xs"
+              {...register('email', rules.email)}
+            />
+            {errors.email && (
+              <p role="alert" className="text-red-500 ml-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <input
+              aria-invalid={errors.password ? 'true' : 'false'}
+              name="password"
+              type="password"
+              placeholder="Password"
+              className="input input-bordered w-full max-w-xs"
+              {...register('password', rules.password)}
+            />
+            {errors.password && (
+              <p role="alert" className="text-red-500 ml-1">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-active btn-error w-full text-white"
+            disabled={status === statuslist.process}
+          >
+            {status === statuslist.process ? 'Processing...' : 'Login'}
+          </button>
+
+          <div className="mx-auto text-black">
+            Belum punya akun ?
+            <Link to={'/register'} className="font-semibold ml-1">
+              Daftar Sekarang
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

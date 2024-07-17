@@ -1,6 +1,12 @@
-import { Pemandangan } from '../../assets';
-import { Sidebar, Topbar } from '../../components/molecules';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import {
+  Sidebar,
+  Topbar,
+  Cart,
+  ResponsiveSidebar,
+} from '../../components/molecules';
 import { Config } from '../../config';
 import {
   fetchProducts,
@@ -10,15 +16,16 @@ import {
   setKeyword,
   toggleTag,
 } from '../../features/Products/actions';
-import { useEffect } from 'react';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { tags } from './tags';
-import Cart from '../../components/molecules/Cart';
 import { addItem, removeItem } from '../../features/Cart/actions';
-import { useNavigate } from 'react-router-dom';
 import { formatRupiah } from '../../utils/format-rupiah';
+import { IoArrowUpCircle } from 'react-icons/io5';
+import { SearchInput } from '../../components/atoms';
 
 const Home = () => {
+  const [toggleCategory, setToggleCategory] = useState(false);
+  const [toggleCart, setToggleCart] = useState(false);
   let dispatch = useDispatch();
   let products = useSelector((state) => state.products);
   let auth = useSelector((state) => state.auth);
@@ -37,64 +44,87 @@ const Home = () => {
 
   return (
     <div className="h-screen w-screen overflow-hidden">
-      <div className="flex gap-5 items-center justify-center">
-        {tags[products.category]
-          ? tags[products.category].map((tag, index) => {
-              return (
-                <div className="flex items-center" key={index}>
-                  <input
-                    type="checkbox"
-                    className="checkbox cursor-pointer"
-                    id={`checkbox-${index}`}
-                    onChange={() => dispatch(toggleTag(tag))}
-                  />
-                  <label
-                    htmlFor={`checkbox-${index}`}
-                    className="cursor-pointer"
-                  >
-                    {tag}
-                  </label>
-                </div>
-              );
-            })
-          : ''}
-      </div>
       <div className="flex flex-row bg-neutral-100 overflow-hidden">
-        <Sidebar dispatch={dispatch} setCategory={setCategory} />
+        <ResponsiveSidebar
+          toggleCategory={toggleCategory}
+          setToggleCategory={setToggleCategory}
+          toggleCart={toggleCart}
+          setToggleCart={setToggleCart}
+        />
+        <Sidebar
+          dispatch={dispatch}
+          setCategory={setCategory}
+          toggleCategory={toggleCategory}
+          setToggleCategory={setToggleCategory}
+        />
         <div className="w-screen h-screen flex flex-col sm:flex sm:flex-row">
-          <div className="shop-cart bg-neutral-200 w-full h-40 sm:w-60 sm:h-full sm:overflow-y-auto">
+          {/* CART */}
+          <div
+            className={`${
+              toggleCart
+                ? 'fixed top-0 left-0 right-0 bottom-0 overflow-y-scroll z-30 translate-y-0'
+                : 'fixed top-0 left-0 right-0 bottom-0 -translate-y-full'
+            } transition ease-in-out delay-150 duration-300 md:hidden shop-cart bg-neutral-200 w-full md:w-60 md:h-full md:overflow-y-auto`}
+          >
+            <IoArrowUpCircle
+              className="cursor-pointer mx-auto text-3xl text-red-500 mt-3 hover:bg-slate-300 rounded-md"
+              onClick={() => setToggleCart(!toggleCart)}
+            />
             <Cart
               items={cart}
               onItemInc={(item) => dispatch(addItem(item))}
               onItemDec={(item) => dispatch(removeItem(item))}
               onCheckout={() => navigate('/checkout')}
+              toggleCart={toggleCart}
             />
           </div>
+
           <div className="main-content bg-neutral-50 w-full h-full overflow-y-scroll flex flex-col items-center">
-            <div className="container mx-auto px-5 mb-5">
+            <div className="container mx-auto px-5 mb-12">
               <Topbar />
-              <label className="input input-bordered flex items-center gap-2 rounded-full !outline-none">
-                <input
-                  type="text"
-                  className="grow"
-                  placeholder="cari makanan favoritmu..."
-                  value={products.keyword}
-                  onChange={(e) => dispatch(setKeyword(e.target.value))}
-                />
-              </label>
+              <SearchInput
+                products={products}
+                dispatch={dispatch}
+                setKeyword={setKeyword}
+              />
             </div>
+
+            <div className="flex gap-5 items-center justify-start flex-wrap w-full mb-7 px-8">
+              {tags[products.category]
+                ? tags[products.category].map((tag, index) => {
+                    return (
+                      <div
+                        className="form-control bg-red-500 rounded-lg w-36 px-2"
+                        key={index}
+                      >
+                        <label className="label cursor-pointer flex gap-2 items-center justify-center">
+                          <span className="label-text font-mono text-white capitalize">
+                            {tag}
+                          </span>
+                          <input
+                            type="checkbox"
+                            className="toggle toggle-error"
+                            onChange={() => dispatch(toggleTag(tag))}
+                          />
+                        </label>
+                      </div>
+                    );
+                  })
+                : ''}
+            </div>
+
             {products.status === 'process' && !products.data.length ? (
               <div className="flex justify-center">
                 <BounceLoader color="red" />
               </div>
             ) : null}
-            <div className="flex justify-center items-center px-5">
-              <div className="flex gap-7 flex-wrap">
+            <div className="flex justify-center items-center px-8">
+              <div className="flex gap-7 flex-wrap justify-center md:justify-start">
                 {products.data.map((product, index) => {
                   return (
                     <div
                       key={index}
-                      className="card w-72 h-52 bg-white shadow-xl box-content overflow-hidden"
+                      className="card w-72 h-57 md:h-52 bg-white shadow-xl box-content overflow-hidden"
                     >
                       <figure>
                         <div className="border-black bg-red-500 w-full flex items-center justify-center">
@@ -129,16 +159,21 @@ const Home = () => {
                 })}
               </div>
             </div>
-            <div className="join grid grid-cols-2 mt-8 mb-40">
+            <div className="join grid grid-cols-2 mt-8 mb-20">
               <button
                 className="join-item btn btn-outline"
                 onClick={() => dispatch(gotToPrevPage())}
+                disabled={products.currentPage === 1}
               >
                 Previous page
               </button>
               <button
                 className="join-item btn btn-outline"
                 onClick={() => dispatch(goToNextPage())}
+                disabled={
+                  products.currentPage ===
+                  Math.ceil(products.totalItems / products.perPage)
+                }
               >
                 Next
               </button>
