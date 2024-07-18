@@ -57,7 +57,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container h-screen w-full flex justify-center items-center">
+    <div className="container h-screen w-full flex justify-center items-center max-w-lg mx-auto">
       <div className="p-4 w-4/5 border shadow-2xl">
         <h1 className="text-red-500 font-bold text-center font-sans text-2xl mb-10">
           FoodStore
@@ -73,7 +73,7 @@ const Login = () => {
               name="email"
               type="email"
               placeholder="Email"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               {...register('email', rules.email)}
             />
             {errors.email && (
@@ -89,7 +89,7 @@ const Login = () => {
               name="password"
               type="password"
               placeholder="Password"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               {...register('password', rules.password)}
             />
             {errors.password && (

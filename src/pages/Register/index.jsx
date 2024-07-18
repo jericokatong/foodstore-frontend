@@ -55,7 +55,7 @@ const Register = () => {
     navigate('/register/berhasil');
   };
   return (
-    <div className="container mx-auto h-screen w-full flex justify-center items-center">
+    <div className="container mx-auto h-screen w-full flex justify-center items-center max-w-lg">
       <div className="p-4 w-4/5 shadow-2xl border">
         <h1 className="text-red-500 font-sans text-2xl font-bold text-center mb-10">
           FoodStore
@@ -72,7 +72,7 @@ const Register = () => {
               name="full-name"
               type="text"
               placeholder="Nama Lengkap"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               {...register('full_name', rules.full_name)}
             />
             {errors.full_name && (
@@ -88,7 +88,7 @@ const Register = () => {
               name="email"
               type="text"
               placeholder="Email"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               {...register('email', rules.email)}
             />
             {errors.email && (
@@ -104,7 +104,7 @@ const Register = () => {
               name="password"
               type="text"
               placeholder="Password"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               {...register('password', rules.password)}
             />
             {errors.password && (
@@ -120,7 +120,7 @@ const Register = () => {
               name="password_confirmation"
               type="text"
               placeholder="Konfirmasi Password"
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               {...register(
                 'password_confirmation',
                 rules.password_confirmation

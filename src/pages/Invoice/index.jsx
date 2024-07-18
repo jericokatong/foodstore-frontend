@@ -77,12 +77,19 @@ const Invoice = () => {
   }
 
   return (
-    <div>
+    <div className="px-5">
       <Topbar />
-      Invoice
-      <div className="overflow-x-auto">
+      <h1 className="text-black font-bold px-1 mb-5">Invoice</h1>
+
+      <div className="overflow-x-auto mb-10 shadow-lg">
         <table className="table">
-          <tbody>
+          <thead className="bg-red-500">
+            <tr className="h-10">
+              <td className="rounded-tl-lg w-1/2"></td>
+              <td className="rounded-tr-lg w-1/2"></td>
+            </tr>
+          </thead>
+          <tbody className="text-black">
             <tr>
               <th>Status</th>
               <td>
@@ -92,17 +99,19 @@ const Invoice = () => {
 
             <tr>
               <th>Order ID</th>
-              <td># {invoice?.order?.order_number}</td>
+              <td className="font-semibold">
+                # {invoice?.order?.order_number}
+              </td>
             </tr>
             <tr>
               <th>Total amount</th>
-              <td>{formatRupiah(invoice?.total)}</td>
+              <td className="font-semibold">{formatRupiah(invoice?.total)}</td>
             </tr>
 
             <tr>
               <th>Billed to</th>
-              <td>
-                <p>{invoice?.user?.full_name}</p>
+              <td className="font-semibold">
+                <p className="font-bold">{invoice?.user?.full_name}</p>
                 <p>{invoice?.user?.email}</p>
                 <br />
                 <br />
@@ -116,7 +125,7 @@ const Invoice = () => {
 
             <tr>
               <th>Payment to</th>
-              <td>
+              <td className="font-semibold">
                 {Config.owner}
                 <br />
                 {Config.contact}
@@ -130,15 +139,15 @@ const Invoice = () => {
         </table>
       </div>
       {invoice.payment_status !== 'paid' ? (
-        <>
+        <div className="w-full flex justify-end mb-5">
           <button
-            className="btn"
+            className="btn btn-error text-white"
             onClick={handlePayment}
             disabled={initiatingPayment}
           >
             {initiatingPayment ? 'Loading ...' : 'Bayar dengan Midtrans'}
           </button>
-        </>
+        </div>
       ) : null}
     </div>
   );

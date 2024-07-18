@@ -17,9 +17,9 @@ const Logout = () => {
   }, [navigate, logout]);
 
   return (
-    <div>
+    <div className="w-full flex flex-col justify-center items-center gap-3 mt-5">
       <BounceLoader color="red" />
-      Logging out ...
+      <p className="font-mono">Logging out ...</p>
     </div>
   );
 };

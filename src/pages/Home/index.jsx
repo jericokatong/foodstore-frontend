@@ -64,10 +64,10 @@ const Home = () => {
               toggleCart
                 ? 'fixed top-0 left-0 right-0 bottom-0 overflow-y-scroll z-30 translate-y-0'
                 : 'fixed top-0 left-0 right-0 bottom-0 -translate-y-full'
-            } transition ease-in-out delay-150 duration-300 md:hidden shop-cart bg-neutral-200 w-full md:w-60 md:h-full md:overflow-y-auto`}
+            } transition ease-in-out delay-150 duration-300 shop-cart bg-neutral-200 w-full md:w-60 md:h-full md:overflow-y-auto md:transform-none md:static`}
           >
             <IoArrowUpCircle
-              className="cursor-pointer mx-auto text-3xl text-red-500 mt-3 hover:bg-slate-300 rounded-md"
+              className="cursor-pointer mx-auto text-3xl text-red-500 mt-3 hover:bg-slate-300 rounded-md md:hidden"
               onClick={() => setToggleCart(!toggleCart)}
             />
             <Cart
@@ -119,12 +119,12 @@ const Home = () => {
               </div>
             ) : null}
             <div className="flex justify-center items-center px-8">
-              <div className="flex gap-7 flex-wrap justify-center md:justify-start">
+              <div className="flex gap-7 flex-wrap justify-center md:justify-center">
                 {products.data.map((product, index) => {
                   return (
                     <div
                       key={index}
-                      className="card w-72 h-57 md:h-52 bg-white shadow-xl box-content overflow-hidden"
+                      className="card w-72 h-57 md:h-52 md:w-64 md:max-w-72 bg-white shadow-xl box-content overflow-hidden"
                     >
                       <figure>
                         <div className="border-black bg-red-500 w-full flex items-center justify-center">
@@ -146,8 +146,9 @@ const Home = () => {
                             onClick={() => {
                               if (!auth.user) {
                                 navigate('/login');
+                              } else {
+                                dispatch(addItem(product));
                               }
-                              dispatch(addItem(product));
                             }}
                           >
                             Add to Cart

@@ -41,14 +41,14 @@ const Cart = ({ items, onItemInc, onItemDec, onCheckout, toggleCart }) => {
               key={index}
               className={`${
                 toggleCart ? '' : 'hidden'
-              } flex gap-5 flex-row justify-between items-center bg-red-500 w-full py-5 px-5 rounded-lg text-white`}
+              } flex gap-5 flex-row justify-between items-center bg-red-500 w-full py-5 px-5 rounded-lg text-white md:flex md:flex-col md:justify-center md:items-center`}
             >
               <img
                 className="w-14 h-14 bg-white rounded-lg"
                 src={`${Config.api_host}/upload/${item.image_url}`}
                 alt=""
               />
-              <p className="font-bold text-start text-wrap w-full">
+              <p className="font-bold text-start md:text-center text-wrap w-full">
                 {item.name}
               </p>
 
