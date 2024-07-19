@@ -12,7 +12,7 @@ const UserAddress = () => {
       <h1 className="font-sans text-black font-bold px-1 mb-10">Alamat</h1>
 
       <Link
-        className="btn btn-error text-white h-6 min-h-6 w-32 uppercase font-extralight mb-5 pb-3 pt-1"
+        className="btn btn-error text-white h-8 min-h-8 w-32 uppercase font-extralight mb-5"
         to={'/alamat-pengiriman/tambah'}
       >
         Tambah Baru
