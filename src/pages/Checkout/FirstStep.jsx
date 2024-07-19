@@ -10,7 +10,7 @@ const FirstStep = ({
   setActiveStep,
 }) => {
   return (
-    <div>
+    <div className="mb-5">
       <div className="overflow-x-auto">
         <table className="table shadow-lg">
           {/* head */}

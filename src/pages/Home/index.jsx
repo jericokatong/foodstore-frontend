@@ -80,7 +80,7 @@ const Home = () => {
           </div>
 
           <div className="main-content bg-neutral-50 w-full h-full overflow-y-scroll flex flex-col items-center">
-            <div className="container mx-auto px-5 mb-12">
+            <div className="container mx-auto px-5">
               <Topbar />
               <SearchInput
                 products={products}
@@ -89,7 +89,11 @@ const Home = () => {
               />
             </div>
 
-            <div className="flex gap-5 items-center justify-start flex-wrap w-full mb-7 px-8">
+            <div
+              className={`flex gap-5 items-center justify-start flex-wrap w-full px-8 ${
+                tags[products.category] === '' ? '' : 'mb-3 mt-3'
+              }`}
+            >
               {tags[products.category]
                 ? tags[products.category].map((tag, index) => {
                     return (

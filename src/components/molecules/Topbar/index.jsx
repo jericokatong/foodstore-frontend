@@ -12,7 +12,7 @@ const Topbar = () => {
       </h1>
 
       <Link
-        className="flex gap-1 items-center text-right text-md text-red-500 hover:bg-neutral-100 hover:rounded-lg px-1 text-xs md:text-sm"
+        className="flex gap-1 items-center text-right text-md text-red-500 hover:bg-neutral-100 hover:rounded-lg px-1 text-md"
         to={auth?.user ? '/account' : '/login'}
       >
         {auth?.user?.full_name}

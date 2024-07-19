@@ -39,7 +39,11 @@ const UserOrders = () => {
     <div className="px-5">
       <Topbar />
       <h1 className="px-1 text-black font-bold mb-6">Pesanan Anda</h1>
-      <div className="overflow-x-auto">
+      <div
+        className={`overflow-x-auto ${
+          !pesanan.length && status === 'success' ? 'hidden' : ''
+        }`}
+      >
         <table className="table">
           {/* head */}
           <thead className="bg-red-500 text-white text-lg">
@@ -82,29 +86,34 @@ const UserOrders = () => {
               ))}
           </tbody>
         </table>
+        <div className="join grid grid-cols-2 mt-8 max-w-60 mx-auto">
+          <button
+            className="join-item btn btn-outline"
+            onClick={() => (page === 1 ? setPage(1) : setPage(page - 1))}
+            disabled={page === 1}
+          >
+            Previous page
+          </button>
+          <button
+            className="join-item btn btn-outline"
+            onClick={() =>
+              page === Math.ceil(count / limit)
+                ? setPage(Math.ceil(count / limit))
+                : setPage(page + 1)
+            }
+            disabled={page === Math.ceil(count / limit)}
+          >
+            Next
+          </button>
+          <p>Page: {page}</p>
+          <p>Total Page: {Math.ceil(count / limit)}</p>
+        </div>
       </div>
-      <div className="join grid grid-cols-2 mt-8 max-w-60 mx-auto">
-        <button
-          className="join-item btn btn-outline"
-          onClick={() => (page === 1 ? setPage(1) : setPage(page - 1))}
-          disabled={page === 1}
-        >
-          Previous page
-        </button>
-        <button
-          className="join-item btn btn-outline"
-          onClick={() =>
-            page === Math.ceil(count / limit)
-              ? setPage(Math.ceil(count / limit))
-              : setPage(page + 1)
-          }
-          disabled={page === Math.ceil(count / limit)}
-        >
-          Next
-        </button>
-        <p>Page: {page}</p>
-        <p>Total Page: {Math.ceil(count / limit)}</p>
-      </div>
+      {!pesanan.length && status === 'success' ? (
+        <p>Anda belum memiliki pesanan</p>
+      ) : (
+        ''
+      )}
     </div>
   );
 };

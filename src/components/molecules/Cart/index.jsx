@@ -44,7 +44,7 @@ const Cart = ({ items, onItemInc, onItemDec, onCheckout, toggleCart }) => {
               } flex gap-5 flex-row justify-between items-center bg-red-500 w-full py-5 px-5 rounded-lg text-white md:flex md:flex-col md:justify-center md:items-center`}
             >
               <img
-                className="w-14 h-14 bg-white rounded-lg"
+                className="w-28 md:w-full h-14 md:h-16 bg-white rounded-lg object-contain"
                 src={`${Config.api_host}/upload/${item.image_url}`}
                 alt=""
               />

@@ -17,7 +17,11 @@ const UserAddress = () => {
       >
         Tambah Baru
       </Link>
-      <div className="overflow-x-auto">
+      <div
+        className={`overflow-x-auto ${
+          status === 'success' && !data.length ? 'hidden' : ''
+        }`}
+      >
         <table className="table border-collapse">
           {/* head */}
           <thead className="bg-red-500 text-white">
@@ -68,16 +72,10 @@ const UserAddress = () => {
             </tr>
           </tbody>
         </table>
-
-        {status === 'success' && !data.length ? (
-          <div>
-            Kamu belum menambahkan alamat pengiriman.
-            <Link className="btn btn-neutral" to={'/alamat-pengiriman/tambah'}>
-              Tambah Baru
-            </Link>
-          </div>
-        ) : null}
       </div>
+      {status === 'success' && !data.length ? (
+        <div>Kamu belum menambahkan alamat pengiriman.</div>
+      ) : null}
     </div>
   );
 };

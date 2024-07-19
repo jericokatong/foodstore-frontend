@@ -62,7 +62,7 @@ const Invoice = () => {
   if (error.length) {
     return (
       <div>
-        <h1 className="font-bold">Terjadi kesalahana</h1>
+        <h1 className="font-bold">Terjadi kesalahan</h1>
         <p>{error}</p>
       </div>
     );
@@ -70,7 +70,7 @@ const Invoice = () => {
 
   if (status === 'process') {
     return (
-      <div>
+      <div className="w-full h-screen flex justify-center">
         <BounceLoader />
       </div>
     );
@@ -145,7 +145,7 @@ const Invoice = () => {
             onClick={handlePayment}
             disabled={initiatingPayment}
           >
-            {initiatingPayment ? 'Loading ...' : 'Bayar dengan Midtrans'}
+            {initiatingPayment ? 'Loading ...' : 'Bayar'}
           </button>
         </div>
       ) : null}
