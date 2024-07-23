@@ -1,8 +1,31 @@
-# React + Vite
+# FoodStore - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup
 
-Currently, two official plugins are available:
+1. Install dependencies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+   ```
+   npm install
+   ```
+
+2. Setup `.env` file to `./` <br />
+   **.env example:**
+
+   ```
+   VITE_API_HOST="http://localhost:3000"
+   VITE_SITE_TITLE=Foodie Store
+   VITE_GLOBAL_ONGKIR=20000
+   VITE_OWNER=example
+   VITE_CONTACT=example@gmail.com
+   VITE_BILLING_NO=xxxx-xxxxx-33-34
+   VITE_BILLING_BANK=example
+   ```
+
+3. Start server:
+   ```
+   npm start
+   ```
+
+## Tech Stack
+
+- Front-end: React, Redux, TailwindCSS, daisyui
